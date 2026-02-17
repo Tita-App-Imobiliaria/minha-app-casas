@@ -1,167 +1,80 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MyHome Share - Portfolio</title>
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="MyHome Share">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/Lz0D7YV/20211025-120128.jpg">
-    <link rel="icon" type="image/png" href="https://i.ibb.co/Lz0D7YV/20211025-120128.jpg">
-
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
-
-    <style>
-        :root { --primary: #000000; --bg: #ffffff; }
-        body { 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            padding: 15px; 
-            color: #333; 
-            text-align: center;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .container { max-width: 500px; margin: auto; }
-        
-        .brand-text { font-size: 26px; color: #333; margin: 40px 0 30px 0; line-height: 1.5; font-weight: 300; letter-spacing: 1px; }
-        .brand-text b { font-size: 34px; display: block; margin-top: 15px; color: #000; font-weight: bold; letter-spacing: 3px; }
-
-        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; text-align: left; }
-        .prop-img { width: 100%; height: 220px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
-        
-        input, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; }
-        button { width: 100%; padding: 16px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .btn-add { background: var(--primary); color: white; text-transform: uppercase; }
-        .btn-wa { background: #25D366; color: white; text-decoration: none; display: block; text-align: center; margin-top: 10px; border-radius: 10px; font-weight: bold; padding: 14px; }
-        
-        #app-content { display: none; }
-        .note-area { background: #fffdf0; border: 1px solid #f1c40f; min-height: 80px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Inspire Imóvel</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="">
+<script src=""></script>
+<script src=""></script>
+<style>
+:root { --primary: #000; --bg: #fdfdfb; --card: #ffffff; }
+body { font-family: 'Georgia', serif; background: var(--bg); margin: 0; padding: 20px; color: #1a1a1a; text-align: center; }
+.container { max-width: 600px; margin: auto; }
+.brand-header { font-style: italic; font-size: 28px; margin: 40px 0; }
+.brand-text { font-size: 24px; line-height: 1.4; margin-bottom: 40px; }
+.brand-text b { font-size: 32px; display: block; margin-top: 10px; font-family: sans-serif; letter-spacing: 4px; }
+details { background: var(--card); border: 1px solid #e5e5e0; margin-bottom: 15px; text-align: left; }
+summary { padding: 20px; font-weight: bold; cursor: pointer; list-style: none; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+summary::after { content: "＋"; }
+details[open] summary::after { content: "－"; }
+.details-content { padding: 0 20px 20px 20px; border-top: 1px solid #f9f9f9; }
+input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+.btn-add { background: #000; color: #fff; width: 100%; padding: 18px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+.icon-box { font-size: 50px; padding: 30px; background: #f9f9f7; display: block; text-align: center; margin-bottom: 15px; }
+.btn-wa { background: #000; color: white; text-decoration: none; display: block; text-align: center; padding: 15px; margin-top: 20px; font-size: 12px; text-transform: uppercase; }
+#app-content { display: none; }
+textarea { width: 100%; min-height: 100px; border: 1px solid #ddd; padding: 10px; margin-top: 15px; box-sizing: border-box; font-family: 'Georgia', serif; }
+</style>
 </head>
 <body>
-
 <div class="container">
-    <div id="login-screen">
-        <div class="brand-text">
-            New Beginnings<br>
-            New Memories<br>
-            New Dreams
-            <b>NEW HOME</b>
-        </div>
-        
-        <input type="text" id="access-code" placeholder="CÓDIGO DE ACESSO">
-        <button class="btn-add" onclick="checkLogin()">Entrar no Portefólio</button>
-        
-        <p style="font-size: 13px; color: #999; margin-top: 30px; line-height: 1.6; padding: 0 30px;">
-            Espaço exclusivo para a gestão da procura da sua nova casa.
-        </p>
-    </div>
+<div id="login-screen">
+<h1 class="brand-header">Inspire Imóvel</h1>
+<div class="brand-text">New Beginnings
 
-    <div id="app-content">
-        <div style="text-align: left; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="welcome-msg" style="margin:0; font-weight: 300;">Olá! 👋</h2>
-            <button onclick="location.reload()" style="width: auto; background: none; color: #999; font-size: 12px;">Sair</button>
-        </div>
 
-        <div class="card" style="border: 1px dashed #000;">
-            <h4 style="margin:0">➕ Adicionar Novo Imóvel</h4>
-            <input type="text" id="link" placeholder="Link do Imóvel">
-            <input type="text" id="imgLink" placeholder="Link da foto (opcional)">
-            <input type="text" id="local" placeholder="Localização">
-            <input type="text" id="preco" placeholder="Valor">
-            <input type="text" id="tipo" placeholder="Tipologia">
-            <button class="btn-add" onclick="saveToFirebase()">Adicionar</button>
-        </div>
+New Memories
 
-        <div id="property-list"></div>
-    </div>
+
+New Dreams<b>NEW HOME</b></div>
+<input type="text" id="access-code" placeholder="CÓDIGO DE ACESSO">
+<button class="btn-add" onclick="checkLogin()">Entrar</button>
 </div>
-
+<div id="app-content">
+<h2 style="font-weight:normal; font-style:italic;">Portefólio de Seleção</h2>
+<details>
+<summary>Adicionar Proposta</summary>
+<div class="details-content">
+<input type="text" id="link" placeholder="Link do Imóvel">
+<input type="text" id="local" placeholder="Localização">
+<input type="text" id="preco" placeholder="Valor">
+<input type="text" id="tipo" placeholder="Tipologia">
+<button class="btn-add" onclick="saveToFirebase()">Gravar na Lista</button>
+</div>
+</details>
+<div id="property-list"></div>
+<button onclick="location.reload()" style="background:none; border:none; color:#999; margin-top:40px;">Sair</button>
+</div>
+</div>
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyA18c4ynE28ugvLZqyatw1-l-s2U98UqzE",
-        authDomain: "app-imobiliaria-compradores.firebaseapp.com",
-        databaseURL: "https://app-imobiliaria-compradores-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "app-imobiliaria-compradores",
-        storageBucket: "app-imobiliaria-compradores.firebasestorage.app",
-        messagingSenderId: "125952001601",
-        appId: "1:125952001601:web:9b3ceb8cadd48ec9d568c0"
-    };
+const firebaseConfig = {
+apiKey: "AIzaSyA18c4ynE28ugvLZqyatw1-l-s2U98UqzE",
+authDomain: "app-imobiliaria-compradores.firebaseapp.com",
+databaseURL: "",
+projectId: "app-imobiliaria-compradores",
+storageBucket: "app-imobiliaria-compradores.firebasestorage.app",
+messagingSenderId: "125952001601",
+appId: "1:125952001601:web:9b3ceb8cadd48ec9d568c0"
+};
+const SEU_TELEMÓVEL = "351960012080";
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+let currentCode = "";
 
-    const SEU_TELEMÓVEL = "351960012080";
-    const FOTO_PADRAO = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800";
-
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    let currentCode = "";
-
-    function checkLogin() {
-        const code = document.getElementById('access-code').value.trim().toLowerCase();
-        if(code) {
-            currentCode = code;
-            let firstName = code.split('-')[0].split('_')[0];
-            firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-            document.getElementById('welcome-msg').innerText = `Olá, ${firstName}! 👋`;
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-content').style.display = 'block';
-            loadData();
-        }
-    }
-
-    function saveToFirebase() {
-        const link = document.getElementById('link').value;
-        if(!link) return alert("Cole o link!");
-        database.ref('clientes/' + currentCode).push({
-            link: link,
-            img: document.getElementById('imgLink').value || FOTO_PADRAO,
-            local: document.getElementById('local').value || "Sob consulta",
-            preco: document.getElementById('preco').value || "Sob consulta",
-            tipo: document.getElementById('tipo').value || "N/A",
-            notas: "Escreva aqui as suas notas...",
-            archived: false,
-            timestamp: Date.now()
-        });
-        ["link", "imgLink", "local", "preco", "tipo"].forEach(id => document.getElementById(id).value = "");
-    }
-
-    function updateNote(id, newNote) {
-        database.ref('clientes/' + currentCode + '/' + id).update({ notas: newNote });
-    }
-
-    function toggleArchive(id, status) {
-        database.ref('clientes/' + currentCode + '/' + id).update({ archived: !status });
-    }
-
-    function loadData() {
-        database.ref('clientes/' + currentCode).on('value', (snapshot) => {
-            const listDiv = document.getElementById('property-list');
-            listDiv.innerHTML = "";
-            const items = snapshot.val();
-            if(!items) return;
-            Object.keys(items).reverse().forEach(id => {
-                const item = items[id];
-                const waLink = `https://wa.me/${SEU_TELEMÓVEL}?text=${encodeURIComponent("Feedback: " + item.link)}`;
-                listDiv.innerHTML += `
-                    <div class="card" style="${item.archived ? 'opacity:0.4' : ''}">
-                        <img src="${item.img}" class="prop-img">
-                        <h3 style="margin:5px 0">${item.local}</h3>
-                        <p style="font-size:14px; margin:5px 0;">${item.tipo} | ${item.preco}</p>
-                        <a href="${item.link}" target="_blank" style="color:blue; text-decoration:none; font-size:14px;">Abrir Anúncio 🔗</a>
-                        <textarea class="note-area" onchange="updateNote('${id}', this.value)" placeholder="Notas...">${item.notas}</textarea>
-                        ${!item.archived ? `
-                            <a href="${waLink}" target="_blank" class="btn-wa">Falar sobre esta casa 💬</a>
-                            <button onclick="toggleArchive('${id}', false)" style="background:none; color:gray; font-size:11px; margin-top:10px;">Mover para arquivo</button>
-                        ` : `
-                            <button onclick="toggleArchive('${id}', true)" style="background:none; color:blue; font-size:11px;">Reativar</button>
-                        `}
-                    </div>`;
-            });
-        });
-    }
 </script>
 </body>
 </html>
