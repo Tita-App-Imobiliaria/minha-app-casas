@@ -10,40 +10,50 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
     <style>
-        :root { --primary: #000; --bg: #fdfdfb; --card: #ffffff; }
+        :root { 
+            --primary: #000; 
+            --bg: #e8f1f2; /* Azul/Esverdeado Pastel */
+            --card: #ffffff; 
+        }
         
-        /* Forçar o fundo em todo o lado */
-        html, body { background-color: var(--bg) !important; height: 100%; margin: 0; }
+        /* Forçar o fundo em toda a página */
+        html, body { 
+            background-color: var(--bg) !important; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
         
         body { font-family: 'Georgia', serif; padding: 20px; color: #1a1a1a; text-align: center; }
-        .container { max-width: 600px; margin: auto; padding-bottom: 50px; }
+        .container { max-width: 600px; margin: auto; padding-bottom: 60px; }
         
         .brand-text { font-size: 24px; line-height: 1.4; margin: 40px 0; }
         .brand-text b { font-size: 32px; display: block; margin-top: 10px; font-family: sans-serif; letter-spacing: 4px; font-weight: bold; }
         
-        .intro-text { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; font-style: italic; }
+        .intro-text { font-size: 14px; color: #4a5a5a; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; font-style: italic; }
 
-        details { background: var(--card); border: 1px solid #e5e5e0; margin-bottom: 15px; text-align: left; }
-        summary { padding: 20px; font-weight: bold; cursor: pointer; list-style: none; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; outline: none; }
-        summary::after { content: "＋"; color: #999; }
+        details { background: var(--card); border: 1px solid #d1dbdb; margin-bottom: 15px; text-align: left; border-radius: 4px; }
+        summary { padding: 20px; font-weight: bold; cursor: pointer; list-style: none; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; outline: none; font-family: sans-serif; }
+        summary::after { content: "＋"; color: #8ea1a1; }
         details[open] summary::after { content: "－"; }
         
-        .details-content { padding: 0 20px 20px 20px; border-top: 1px solid #f9f9f9; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 16px; background: #fff; }
+        .details-content { padding: 0 20px 20px 20px; border-top: 1px solid #f0f5f5; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ccd6d6; border-radius: 4px; box-sizing: border-box; font-size: 16px; background: #fff; }
         
-        .btn-add { background: #000; color: #fff; width: 100%; padding: 18px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; margin-top: 10px; }
+        .btn-add { background: #000; color: #fff; width: 100%; padding: 18px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; margin-top: 10px; border-radius: 4px; }
         
-        .icon-box { font-size: 50px; padding: 30px; background: #f9f9f7; display: block; text-align: center; margin-bottom: 15px; }
+        .icon-box { font-size: 50px; padding: 30px; background: #f4f8f8; display: block; text-align: center; margin-bottom: 15px; border-radius: 4px; }
         
-        .btn-wa { background: #000; color: white; text-decoration: none; display: block; text-align: center; padding: 15px; margin-top: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: sans-serif; }
+        .btn-wa { background: #000; color: white; text-decoration: none; display: block; text-align: center; padding: 15px; margin-top: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-family: sans-serif; border-radius: 4px; }
         
-        .logout-container { margin-top: 60px; padding: 20px; border-top: 1px solid #eee; }
-        .btn-logout { background: #f0f0ed; color: #888; border: none; padding: 10px 20px; font-size: 11px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; }
+        .logout-container { margin-top: 60px; padding: 20px; }
+        .btn-logout { background: rgba(0,0,0,0.05); color: #6a7a7a; border: none; padding: 10px 20px; font-size: 10px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; border-radius: 20px; }
 
         #app-content { display: none; }
-        textarea { width: 100%; min-height: 100px; border: 1px solid #ddd; padding: 10px; margin-top: 15px; box-sizing: border-box; font-family: 'Georgia', serif; font-size: 15px; background: #fff; }
+        textarea { width: 100%; min-height: 100px; border: 1px solid #ccd6d6; padding: 10px; margin-top: 15px; box-sizing: border-box; font-family: 'Georgia', serif; font-size: 15px; background: #fff; border-radius: 4px; }
         
-        h2#welcome-user { font-weight: normal; font-style: italic; margin-bottom: 40px; font-size: 26px; }
+        h2#welcome-user { font-weight: normal; font-style: italic; margin-bottom: 40px; font-size: 28px; color: #2c3e3e; }
     </style>
 </head>
 <body>
@@ -52,18 +62,15 @@
         <div class="brand-text">
             New Beginnings<br>New Memories<br>New Dreams<b>NEW HOME</b>
         </div>
-        
         <p class="intro-text">
-            Bem-vindo ao seu espaço exclusivo de consultoria. Aqui poderá acompanhar a seleção de imóveis especificamente para si, centralizar as suas notas e comunicar diretamente connosco sobre cada oportunidade.
+            Bem-vindo ao seu espaço exclusivo de consultoria. Aqui poderá acompanhar a seleção de imóveis especificamente para si, centralizar as suas notas e comunicar diretamente connosco.
         </p>
-
-        <input type="text" id="access-code" placeholder="INSIRA O SEU CÓDIGO">
+        <input type="text" id="access-code" placeholder="CÓDIGO DE ACESSO">
         <button class="btn-add" onclick="checkLogin()">Aceder ao Portfólio</button>
     </div>
 
     <div id="app-content">
         <h2 id="welcome-user">Olá! 👋</h2>
-
         <details>
             <summary>Adicionar Imóvel</summary>
             <div class="details-content">
@@ -74,9 +81,7 @@
                 <button class="btn-add" onclick="saveToFirebase()">Gravar na Lista</button>
             </div>
         </details>
-
         <div id="property-list"></div>
-        
         <div class="logout-container">
             <button class="btn-logout" onclick="location.reload()">Terminar Sessão</button>
         </div>
@@ -100,24 +105,25 @@
 
     function checkLogin() {
         const codeInput = document.getElementById('access-code');
-        const code = codeInput.value.trim();
-        if(code !== "") { 
-            currentCode = code.toLowerCase(); 
-            // Formatar o nome para a saudação (Primeira letra maiúscula)
-            const nomeFormatado = code.charAt(0).toUpperCase() + code.slice(1);
-            document.getElementById('welcome-user').innerText = "Olá " + nomeFormatado + " 👋";
+        const codeOriginal = codeInput.value.trim();
+        if(codeOriginal !== "") { 
+            currentCode = codeOriginal.toLowerCase(); 
             
+            // Lógica para extrair apenas o primeiro nome
+            // Divide por espaço ou traço e pega na primeira parte
+            let primeiroNome = codeOriginal.split(/[ -]+/)[0];
+            primeiroNome = primeiroNome.charAt(0).toUpperCase() + primeiroNome.slice(1).toLowerCase();
+            
+            document.getElementById('welcome-user').innerText = "Olá " + primeiroNome + " 👋";
             document.getElementById('login-screen').style.display = 'none'; 
             document.getElementById('app-content').style.display = 'block'; 
             loadData(); 
-        } else {
-            alert("Por favor, insira o seu código de acesso.");
         }
     }
 
     function saveToFirebase() {
         const link = document.getElementById('link-in').value;
-        if(!link) return alert("Por favor, cole o link do imóvel.");
+        if(!link) return alert("Por favor, cole o link.");
         database.ref('clientes/' + currentCode).push({
             link: link, 
             local: document.getElementById('local-in').value || "Localização sob consulta",
@@ -125,7 +131,7 @@
             tipo: document.getElementById('tipo-in').value || "N/A", 
             notas: ""
         });
-        alert("Imóvel adicionado com sucesso!");
+        alert("Imóvel adicionado!");
         document.getElementById('link-in').value = "";
         document.getElementById('local-in').value = "";
         document.getElementById('preco-in').value = "";
@@ -140,17 +146,15 @@
             if(!items) return;
             Object.keys(items).reverse().forEach(id => {
                 const item = items[id];
-                // Criar mensagem personalizada para o WhatsApp
-                const msgWa = encodeURIComponent("Olá! Tenho interesse no imóvel em " + item.local + " (" + item.preco + ") que vi na app.");
-                
+                const msgWa = encodeURIComponent("Olá! Gostaria de feedback sobre este imóvel: " + item.local + " (" + item.preco + ")");
                 listDiv.innerHTML += `
                 <details>
                     <summary>${item.local} — ${item.preco}</summary>
                     <div class="details-content">
                         <span class="icon-box">🏠</span>
-                        <p><strong>Configuração:</strong> ${item.tipo}</p>
-                        <a href="${item.link}" target="_blank" style="color: #666; font-size: 13px;">Consultar Detalhes Online 🔗</a>
-                        <textarea onchange="updateNote('${id}', this.value)" placeholder="As suas notas sobre este imóvel...">${item.notas || ''}</textarea>
+                        <p style="font-size:14px;"><strong>Tipologia:</strong> ${item.tipo}</p>
+                        <a href="${item.link}" target="_blank" style="color: #4a5a5a; font-size: 13px;">Abrir link do anúncio 🔗</a>
+                        <textarea onchange="updateNote('${id}', this.value)" placeholder="Escreva aqui as suas notas ou dúvidas...">${item.notas || ''}</textarea>
                         <a href="https://wa.me/${SEU_TELEMÓVEL}?text=${msgWa}" target="_blank" class="btn-wa">Enviar Feedback</a>
                     </div>
                 </details>`;
